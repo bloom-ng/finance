@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+// //Roles route
+// Route::resource('roles', App\Http\Controllers\Api\RoleController::class);
+
+//Users Route
+// Route::resource('users', App\Http\Controllers\Api\UserController::class);
+
+// Route::resource('/admins', App\Http\Controllers\Api\AdminController::class);

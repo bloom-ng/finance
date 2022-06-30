@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PayerType extends Model
 {
     use HasFactory;
+
+    public function payer()
+    {
+        return $this->belongsTo(Payer::class);
+    }
 }

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class RoleSeeder extends Seeder
 {
@@ -13,6 +15,11 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $roles = ['cashier', 'admin'];
+        DB::table('roles')->delete();
+            foreach ($roles as $role) {
+                Role::factory()->create(['name' => $role]);
+            }
+        
     }
 }
