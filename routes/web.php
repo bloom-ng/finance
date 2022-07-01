@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers;
 
 
 /*
@@ -22,3 +23,19 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'login']);
 
 Route::post('/login', [AuthController::class, 'loginUser'])->name('login-user');
+
+// Dashboard routes
+Route::get('/admins/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+Route::get('/secretarys/dashboard', [App\Http\Controllers\Secretary\DashboardController::class, 'index'])->name('secretary.dashboard');
+
+// Incomtypes
+// Admin:
+
+Route::get('/admins/income-types', [App\Http\Controllers\Admin\IncomeTypeController::class, 'index'])->name('admin.income-types.index');
+Route::get('/admins/income-types/{IncomeType}', [App\Http\Controllers\Admin\IncomeTypeController::class, 'show'])->name('admin.income-types.show');
+Route::get('/admins/income-types/create', [App\Http\Controllers\Admin\IncomeTypeController::class, 'create'])->name('admin.income-types.create');
+Route::get('/admins/income-types/{IncomeType}/edit', [App\Http\Controllers\Admin\IncomeTypeController::class, 'edit'])->name('admin.income-types.edit');
+Route::post('/admins/income-types', [App\Http\Controllers\Admin\IncomeTypeController::class, 'store'])->name('admin.income-types.edit');
+Route::put('/admins/income-types', [App\Http\Controllers\Admin\IncomeTypeController::class, 'update'])->name('admin.income-types.update');
+Route::delete('/admins/income-types', [App\Http\Controllers\Admin\IncomeTypeController::class, 'delete'])->name('admin.income-types.delete');
+

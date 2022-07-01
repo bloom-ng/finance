@@ -52,4 +52,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(ActivityLog::class);
     }
+
+    public function isAdmin(){
+        return $this->role_id == Role::where('name', 'admin')->first()->id;
+    }
+
+    public function isSecretary(){
+        return $this->role_id == Role::where('name', 'secretary')->first()->id;
+    }
 }
