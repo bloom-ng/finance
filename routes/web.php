@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 
 /*
@@ -14,14 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('index');
 });
 
-// //Roles route
-// Route::resource('roles', App\Http\Controllers\Api\RoleController::class);
+Route::get('/login', [LoginController::class, 'login']);
 
-//Users Route
-// Route::resource('users', App\Http\Controllers\Api\UserController::class);
-
-// Route::resource('/admins', App\Http\Controllers\Api\AdminController::class);
+Route::post('/login', [LoginController::class, 'loginUser'])->name('login-user');
