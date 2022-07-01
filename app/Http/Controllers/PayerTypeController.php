@@ -17,7 +17,7 @@ class PayerTypeController extends Controller
     }
     public function create()
     {
-        //
+        return view('create');
     }
 
     public function store(Request $request)
@@ -48,7 +48,7 @@ class PayerTypeController extends Controller
 
     public function destroy(PayerType $payerType, Request $request)
     {
-        $payerType->delete();
+        $request->$payerType->delete();
 
         return redirect()->back();
     }
