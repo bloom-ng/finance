@@ -9,7 +9,7 @@ use App\Models\IncomeType;
 class IncomeTypeController extends Controller
 {
     public function index(){
-        $incomeTypes = \App\Models\IncomeType::all();
+        $incomeTypes = IncomeType::simplePaginate(2);
 
         return view('admin.income-type.index', [
             'incomeTypes' => $incomeTypes
@@ -18,44 +18,50 @@ class IncomeTypeController extends Controller
 
     public function create()
     {
-        return view('create');
+        return view('admin.income-type.create');
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'string'
+            'name' => 'required|string|max:255'
         ]);
-        IncomeType::create($data);
 
-        return redirect('admin.income-type.index');
+        $incomeType = new IncomeType();
+
+        $incomeType->name = $data['name'];
+        $incomeType->save();
+
+        return redirect()->route('admin.income-types.index');
     }
 
     public function edit(Request $request, $id)
     {
         $incomeType = IncomeType::find($id);
 
-        return view('edit', [
+        return view('admin.income-type.edit', [
             'incomeType' => $incomeType
         ]);
     }
 
     public function update(IncomeType $incomeType, Request $request)
     {
-        $data = $request()->validate([
-            'name' => 'string'
+        $data = $request->validate([
+            'name' => 'required|string|max:255'
         ]);
 
-        $incomeType->update($data);
+        $incomeType->name = $data['name'];
 
-        return redirect('admin.income-type.index');
+        $incomeType->save();
+
+        return redirect()->route('admin.income-types.index');
     }
 
     public function destroy(IncomeType $incomeType, Request $request)
     {
-        $request->$incomeType->delete();
+        $incomeType->delete();
 
-        return redirect('admin.income-type.index');
+        return redirect()->route('admin.income-types.index');
     }
 
 }
