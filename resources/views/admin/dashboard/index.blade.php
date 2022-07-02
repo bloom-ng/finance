@@ -11,5 +11,6 @@
 Dashboard
 
 <a href="{{route('admin.income-types.index')}}"> Income Types</a>
+<a href="{{route('admin.payer-types.index')}}"> Payer Types</a>
 </body>
 </html>

@@ -9,23 +9,23 @@
 <body>
     
 <a href="{{route('admin.dashboard')}}">Dashboard</a>
-<h1>Income Types</h1>
+<h1>Payer Types</h1>
 
-    <div><a href="{{route('admin.income-types.create')}}">Add New</a></div>
+    <div><a href="{{route('admin.payer-types.create')}}">Add New</a></div>
     <table>
         <tr>
             <th>#</th>
             <th>Name</th>
             <th>Actions</th>
         </tr>
-        @foreach ($incomeTypes as $incomeType )
+        @foreach ($payerTypes as $payerType )
         <tr>
             <td>{{$loop->index + 1}}</td>
-            <td>{{$incomeType->name}}</td>
+            <td>{{$payerType->name}}</td>
             <td>
-                <a href="{{route('admin.income-types.edit', ['incomeType' => $incomeType])}}">Edit</a>
+                <a href="{{route('admin.payer-types.edit', ['payerType' => $payerType])}}">Edit</a>
 
-                <form action="{{route('admin.income-types.delete', ['incomeType'=> $incomeType])}}" method="post"> @csrf @method('DELETE')
+                <form action="{{route('admin.payer-types.delete', ['payerType'=> $payerType])}}" method="post"> @csrf @method('DELETE')
                     <button type="submit">Delete</button>
                 </form>
             </td>
