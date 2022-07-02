@@ -3,37 +3,47 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\PayerType;
+use App\Models\Payer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PayerTypeController extends Controller
+class PayerController extends Controller
 {
     public function index()
     {
-        $payerTypes = PayerType::simplePaginate();
+        $payersQuery = Payer::query()
+                        ->when(request()->has('payer_type'), function($query){
+                            $query->where('payer_type_id', request('payer_type'));
+                        });
 
-        return view('admin.payer-type.index', [
-            'payerTypes' => $payerTypes
+        $payers = $payersQuery->get();
+
+        return view('admin.payer.index', [
+            'payers' => $payers
         ]);
     }
     public function create()
     {
-        return view('admin.payer-type.create');
+        return view('admin.payer.create', [
+            'payerTypes' => PayerType::all()
+        ]);
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'string'
+            'name'          => 'required|string|unique:payer,name',
+            'payer_type_id' => 'required|exists:payer_types,id',
         ]);
 
-        $payerType = new PayerType();
+        $payer = new Payer();
 
-        $payerType->name = $data['name'];
+        $payer->name = $data['name'];
+        $payer->payer_type_id = $data['payer_type_id'];
         
-        $payerType->save();
+        $payer->save();
 
-        return redirect()->route('admin.payer-types.index');
+        return redirect()->route('admin.payers.index');
     }
 
     public function edit(PayerType $payerType)

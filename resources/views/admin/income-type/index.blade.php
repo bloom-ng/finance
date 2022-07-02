@@ -34,5 +34,8 @@
         
     </table>
 
+    <!-- Pagination -->
+    {{ $incomeTypes->links() }}
+
 </body>
 </html>

@@ -23,12 +23,13 @@ Route::get('/login', [AuthController::class, 'login']);
 
 Route::post('/login', [AuthController::class, 'loginUser'])->name('login-user');
 
+//////////////////////////////////////////////////ADMIN ROUTES//////////////////////////////////////////////////////////////////////////////////////////
+
 // Dashboard routes
 Route::get('/admins/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
 Route::get('/secretarys/dashboard', [App\Http\Controllers\Secretary\DashboardController::class, 'index'])->name('secretary.dashboard');
 
 // Incomtypes
-// Admin:
 
 Route::get('/admins/income-types', [App\Http\Controllers\Admin\IncomeTypeController::class, 'index'])->name('admin.income-types.index');
 Route::get('/admins/income-types/create', [App\Http\Controllers\Admin\IncomeTypeController::class, 'create'])->name('admin.income-types.create');
@@ -39,7 +40,6 @@ Route::put('/admins/income-types/{incomeType}', [App\Http\Controllers\Admin\Inco
 Route::delete('/admins/income-types/{incomeType}', [App\Http\Controllers\Admin\IncomeTypeController::class, 'destroy'])->name('admin.income-types.delete');
 
 //PayerType
-// Admin:
 
 Route::get('/admins/payer-types', [App\Http\Controllers\Admin\PayerTypeController::class, 'index'])->name('admin.payer-types.index');
 Route::get('/admins/payer-types/create', [App\Http\Controllers\Admin\PayerTypeController::class, 'create'])->name('admin.payer-types.create');
@@ -48,3 +48,16 @@ Route::get('/admins/payer-types/{payerType}/edit', [App\Http\Controllers\Admin\P
 Route::post('/admins/payer-types', [App\Http\Controllers\Admin\PayerTypeController::class, 'store'])->name('admin.payer-types.store');
 Route::put('/admins/payer-types/{payerType}', [App\Http\Controllers\Admin\PayerTypeController::class, 'update'])->name('admin.payer-types.update');
 Route::delete('/admins/payer-types/{payerType}', [App\Http\Controllers\Admin\PayerTypeController::class, 'destroy'])->name('admin.payer-types.delete');
+
+//Payer
+
+Route::get('/admins/payers', [App\Http\Controllers\Admin\PayerController::class, 'index'])->name('admin.payers.index');
+Route::get('/admins/payers/create', [App\Http\Controllers\Admin\PayerController::class, 'create'])->name('admin.payers.create');
+Route::get('/admins/payers/{payer}', [App\Http\Controllers\Admin\PayerController::class, 'show'])->name('admin.payers.show');
+Route::get('/admins/payers/{payer}/edit', [App\Http\Controllers\Admin\PayerController::class, 'edit'])->name('admin.payers.edit');
+Route::post('/admins/payers', [App\Http\Controllers\Admin\PayerController::class, 'store'])->name('admin.payers.store');
+Route::put('/admins/payers/{payer}', [App\Http\Controllers\Admin\PayerController::class, 'update'])->name('admin.payers.update');
+Route::delete('/admins/payers/{payer}', [App\Http\Controllers\Admin\PayerController::class, 'destroy'])->name('admin.payers.delete');
+
+
+//////////////////////////////////////////////////END OF ADMIN ROUTES//////////////////////////////////////////////////////////////////////////////////////////

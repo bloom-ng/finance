@@ -9,7 +9,7 @@ use App\Models\IncomeType;
 class IncomeTypeController extends Controller
 {
     public function index(){
-        $incomeTypes = IncomeType::all();
+        $incomeTypes = IncomeType::simplePaginate(2);
 
         return view('admin.income-type.index', [
             'incomeTypes' => $incomeTypes

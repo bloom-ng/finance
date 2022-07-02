@@ -9,6 +9,8 @@ class Payer extends Model
 {
     use HasFactory;
 
+    protected $with = ['payerType'];
+
     public function income()
     {
         return $this->hasMany(Income::class);
@@ -16,6 +18,6 @@ class Payer extends Model
 
     public function payerType()
     {
-        return $this->hasMany(PayerType::class);
+        return $this->belongsTo(PayerType::class);
     }
 }
