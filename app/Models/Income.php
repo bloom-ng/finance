@@ -18,4 +18,13 @@ class Income extends Model
     {
         return $this->belongsTo(Payer::class);
     }
+
+    public static function paymentMethodMapping(){
+        return [
+            0   =>  'Online',
+            1   =>  'Cash',
+            2   =>  'Cheque',
+            3   =>  'Others'
+        ];
+    }
 }

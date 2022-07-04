@@ -19,7 +19,8 @@ class PayerController extends Controller
         $payers = $payersQuery->get();
 
         return view('admin.payer.index', [
-            'payers' => $payers
+            'payers'        => $payers,
+            'statusMapping' => Payer::statusMapping()
         ]);
     }
     public function create()
@@ -32,7 +33,7 @@ class PayerController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name'          => 'required|string|unique:payer,name',
+            'name'          => 'required|string|unique:payers,name',
             'payer_type_id' => 'required|exists:payer_types,id',
         ]);
 
@@ -46,30 +47,36 @@ class PayerController extends Controller
         return redirect()->route('admin.payers.index');
     }
 
-    public function edit(PayerType $payerType)
+    public function edit(Payer $payer)
     {
-        return view('admin.payer-type.edit', [
-            'payerType' => $payerType
+        return view('admin.payer.edit', [
+            'payer' => $payer,
+            'payerTypes' => PayerType::all(),
+            'statusMapping' =>  Payer::statusMapping()
         ]);
     }
 
-    public function update(PayerType $payerType, Request $request)
+    public function update(Payer $payer, Request $request)
     {
         $data = $request->validate([
-            'name' => 'string'
+            'name'          => "required|string|unique:payers,name,$payer->id,id",
+            'payer_type_id' => 'required|exists:payer_types,id',
+            'status'        => 'required'
         ]);
 
-        $payerType->name = $data['name'];
+        $payer->name = $data['name'];
+        $payer->payer_type_id = $data['payer_type_id'];
+        $payer->status = $data['status'];
         
-        $payerType->save();
+        $payer->save();
 
-        return redirect()->route('admin.payer-types.index');
+        return redirect()->route('admin.payers.index');
     }
 
-    public function destroy(PayerType $payerType, Request $request)
+    public function destroy(Payer $payer, Request $request)
     {
-        $payerType->delete();
+        $payer->delete();
 
-        return redirect()->route('admin.payer-types.index');
+        return redirect()->route('admin.payers.index');
     }
 }
