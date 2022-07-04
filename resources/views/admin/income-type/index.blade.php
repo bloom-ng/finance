@@ -145,8 +145,8 @@
                             <tr>
                                 <td>{{$loop->index + 1}}</td>
                                 <td>{{$incomeType->name}}</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning"><a href="{{route('admin.income-types.edit', ['incomeType' => $incomeType])}}">Edit</a></button>
+                                <td class="d-flex justify-content-around">
+                                    <a href="{{route('admin.income-types.edit', ['incomeType' => $incomeType])}}"><button type="button" class="text-white btn btn-warning">Edit</button></a>
                     
                                     <form action="{{route('admin.income-types.delete', ['incomeType'=> $incomeType])}}" method="post"> @csrf @method('DELETE')
                                         <button class="btn btn-danger" type="submit">Delete</button>
