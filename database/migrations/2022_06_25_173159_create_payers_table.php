@@ -17,7 +17,7 @@ class CreatePayersTable extends Migration
             $table->id();
             $table->foreignId('payer_type_id')->constrained();
             $table->string('name');
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

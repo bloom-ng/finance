@@ -37,7 +37,7 @@
                             </p>
                         </div>
                     </div>
-                    <form method="post" action="{{ route('login-user') }}" class="signin-form">
+                    <form method="post" action="{{ route('login-user') }}" class="signin-form"> @csrf
                         <div class="form-group mt-3">
                             <input type="email" name="email" class="form-control" required>
                             <label class="form-control-placeholder" for="email">Email</label>

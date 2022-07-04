@@ -17,7 +17,7 @@
             <td>{{$loop->index + 1}}</td>
             <td>{{$payer->name}}</td>
             <td>{{$payer->payerType->name}}</td>
-            <td>{{$payer->status}}</td>
+            <td>{{$statusMapping[$payer->status]}}</td>
             <td>
                 <a href="{{route('admin.payers.edit', ['payer' => $payer])}}">Edit</a>
 
