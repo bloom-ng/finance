@@ -1,0 +1,1 @@
+1. loop all incomes in the databaseand view in tabular form
