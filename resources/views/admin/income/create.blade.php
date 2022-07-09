@@ -1,6 +1,3 @@
-<!-- Pleas add this to the header -->
-<script src="//unpkg.com/alpinejs" defer></script>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +12,8 @@
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="/css/dashboard.css" rel="stylesheet" />
+    <!-- Pleas add this to the header -->
+    <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -131,38 +130,42 @@
                                 Input Income
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Income Type</th>
-                                            <th>Payer Class</th>
-                                            <th>Amount</th>
-                                            <th>Payment Method</th>
-                                            <th>Remark</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Income Type</th>
-                                            <th>Payer Class</th>
-                                            <th>Amount</th>
-                                            <th>Payment Method</th>
-                                            <th>Remark</th>
-                                        </tr>
-                                    </tfoot>
-                                    <form action="{{route('admin.incomes.store')}}" method="post" onsubmit="validate()">
-                                        @csrf
+                                <form action="{{route('admin.incomes.store')}}" method="post">
+                                    @csrf
 
-                                        <div x-data="{ showPayerComponent : false}" x-cloak>
+                                    <div x-data="{ showPayerComponent : false}" x-cloak>
+
+                                        <table id="datatablesSimple">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Income Type</th>
+                                                    <th>Payer Class</th>
+                                                    <th>Payer</th>
+                                                    <th>Amount</th>
+                                                    <th>Payment Method</th>
+                                                    <th>Remark</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Income Type</th>
+                                                    <th>Payer Class</th>
+                                                    <th>Payer</th>
+                                                    <th>Amount</th>
+                                                    <th>Payment Method</th>
+                                                    <th>Remark</th>
+                                                </tr>
+                                            </tfoot>
+
                                             <tbody>
                                                 <tr>
                                                     <td>
                                                         <div>
                                                             <label for="payment_date">Date</label>
                                                             <input type="date" name="payment_date" id="payment_date"
-                                                                value="{{date('Y-m-d')}}">
+                                                                value="{{date('y-m-d')}}">
                                                             <br>
                                                         </div>
                                                     </td>
@@ -191,15 +194,28 @@
                                                                 @endforeach
                                                             </select>
                                                         </div>
-                                                        <div x-show="showPayerComponent">
-                                                            <label for="payer">Payer</label>
+                                                    </td>
+                                                    <td>
+                                                        {{-- <div x-show="showPayerComponent">
+                                                            <label for="payer">Payer</label> --}}
                                                             <!-- <select name="payer_id" id="payer_id"></select> -->
-                                                            <div>
+                                                            {{-- <div>
                                                                 <input type="search" name="payer" id="payer"
                                                                     onchange="findPayer()">
                                                                 <div id="choices"></div>
                                                             </div>
                                                             <input type="hidden" name="payer_id" id="payer_id">
+                                                        </div>--}}
+                                                        <div class="form-group col-md-5 col-sm-12 "
+                                                            style="position:relative">
+                                                            <label for="payer">Payer <b class="required_field"> *
+                                                                </b></label>
+                                                            <input class="" autocomplete="off" list="payer" type="text"
+                                                                name="payer" id="payer" required onchange="findPayer()">
+
+                                                            <div style="position:absolute" id="payer-list">
+
+                                                            </div>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -213,7 +229,8 @@
                                                             <label for="payment_method">Payment Method</label>
                                                             <select required name="payment_method" id="payment_method">
                                                                 <option value=""></option>
-                                                                @foreach ($paymentMethodMapping as $key => $value )
+                                                                @foreach ($paymentMethodMapping as $key =>
+                                                                $value )
                                                                 <option value="{{$key}}">
                                                                     {{$value}}
                                                                 </option>
@@ -227,18 +244,19 @@
                                                             <input type="text" name="remark" id="remark">
                                                         </div>
                                                     </td>
-                                                    {{-- <td>
-                                                    </td> --}}
-                                                    <button class="btn btn-success" type="submit">Submit</button>
+                                                    <td>
+                                                        <button class="btn btn-success" type="submit">Submit</button>
+                                                    </td>
                                                 </tr>
                                             </tbody>
-                                        </div>
-                                    </form>
-                                </table>
+                                        </table>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <!-- Place to Place New Content -->
                     </div>
+                </div>
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
@@ -259,78 +277,87 @@
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
     </script>
     <script src="/js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous">
+    </script>
     <script src="/assets/demo/chart-area-demo.js"></script>
     <script src="/assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="/js/datatables-simple-demo.js"></script>
     <script>
-        // const choices = new Choices('#payer_id');
-          
-        // document.querySelector('#payer_type').addEventListener('change', async ()=>{
-        //     try {
-        //         let payersAPIResponse = await fetch(`/api/payers/payer-type/${event.target.value}`);
-        //         payersAPIResponse = await payersAPIResponse.json();
-        //         choices.setChoices(payersAPIResponse.payers, 'id', 'name', false);
-    
-        //     } catch (err) {
-        //         // console.error(err);
-        //     }
-        // });
-    
         async function findPayer(){
-            let payer_type = document.querySelector('#payer_type').value;
-            let payer = event.target.value;
-    
-            let payersAPIResponse = await fetch(`/api/payers/payer-type/${payer_type}?q=${payer}`);
-                payersAPIResponse = await payersAPIResponse.json();
-    
-            setChoices(payersAPIResponse.payers);
-            
+        // let payer_type = document.querySelector('#payer_type').value;
+        // let payer = event.target.value;
+        // let payersAPIResponse = await fetch(`/api/payers/payer-type/${payer_type}?q=${payer}`);
+        //     payersAPIResponse = await payersAPIResponse.json();
+        // setChoices(payersAPIResponse.payers);
+        $("#payer").on(' input',function(event){
+                let search_term = event.target.value;
+                if(search_term == '' || search_term.length <= 2){ 
+                    $("#payer-list").html(''); 
+                    return; 
+                } 
+                let payer_type = $('#payer_type').val();
+                console.log('searching');
+                $("#payer-list").html(payer_type); 
+                let url=`/api/payers/payer-type/${payer_type}?q=${payer_type}`;
+                $.get(url).done( function(data){ 
+                    data=JSON.parse(data); 
+                    data=data.results; 
+                    console.log(data); 
+                    name = data; 
+                    let html = "" ;
+                    data.forEach(function(item){ 
+                        html +=`<div class="items"onclick="updateForm('${item.id}', '${item.name}')">
+                                ${item.name}
+                        </div>`
+                    });
+                    // document.querySelector("#email-list").innerHTML = html;
+                    $("#payer-list").html(html);
+                });
+            }); 
+        
+    }
+    function setChoices(items = []){
+        choices = items.map((payer)=>{
+                            return `<div onclick="setPayer(${payer.id})"> ${payer.name}</div>`;
+                        });
+        document.querySelector('#choices').innerHTML = choices;
+    }
+
+    function setPayer(id=''){
+        document.querySelector('#payer_id').value = id;
+    }
+        
+    function submitIncome(){
+        let paymentDate = document.querySelector('#payment_date').value;
+        let incomeTypeID = document.querySelector('#income_type_id').value;
+        let payerType = document.querySelector('#payer_type').value;
+        let amount = document.querySelector('#amount').value;
+        let paymentMethod = document.querySelector('#payment_method').value;
+        let remark = document.querySelector('#remark').value;
+        let data = {
         }
-    
-        function setChoices(items = []){
-            choices = items.map((payer)=>{
-                                return `<div onclick="setPayer(${payer.id})"> ${payer.name}</div>`;
-                            });
-            document.querySelector('#choices').innerHTML = choices;
+    }
+    function validate(){
+        event.preventDefault();
+        // console.log(event.target);
+        if(document.querySelector('#payer_id').value === ''){
+            alert('Select a payer');
         }
-    
-        function setPayer(id=''){
-            document.querySelector('#payer_id').value = id;
-        }
-            
-    
-    
-        function submitIncome(){
-            let paymentDate = document.querySelector('#payment_date').value;
-            let incomeTypeID = document.querySelector('#income_type_id').value;
-            let payerType = document.querySelector('#payer_type').value;
-            let amount = document.querySelector('#amount').value;
-            let paymentMethod = document.querySelector('#payment_method').value;
-            let remark = document.querySelector('#remark').value;
-    
-            let data = {
-    
-            }
-        }
-    
-        function validate(){
-            event.preventDefault();
-            // console.log(event.target);
-            if(document.querySelector('#payer_id').value === ''){
-                alert('Select a payer');
-    
-            }
-            event.target.submit();
-        }
-            
+        event.target.submit();
+    }
+        
     </script>
+
 </body>
 
 </html>
+<!-- Pleas add this to the header -->
+{{-- <script src="//unpkg.com/alpinejs" defer></script>
 
-{{-- <form action="{{route('admin.incomes.store')}}" method="post" onsubmit="validate()"> @csrf
+<form action="{{route('admin.incomes.store')}}" method="post" onsubmit="validate()"> @csrf
 
     <div x-data="{ showPayerComponent : false}" x-cloak>
         <div>
@@ -364,13 +391,22 @@
         </div>
 
         <div x-show="showPayerComponent">
-            <label for="payer">Payer</label>
+            <label for="payer">Payer</label> --}}
             <!-- <select name="payer_id" id="payer_id"></select> -->
-            <div>
+            {{-- <div>
                 <input type="search" name="payer" id="payer" onchange="findPayer()">
                 <div id="choices"></div>
+            </div> --}}
+            {{-- <input type="hidden" name="payer_id" id="payer_id">
+        </div>
+        <div class="form-group col-md-5 col-sm-12 " style="position:relative">
+            <label for="payer">Payer <b class="required_field"> * </b></label>
+            <input class="form-control" autocomplete="off" list="payer" type="text" name="payer" id="payer" required
+                onchange="findPayer()">
+
+            <div style="position:absolute" id="payer-list">
+
             </div>
-            <input type="hidden" name="payer_id" id="payer_id">
         </div>
 
         <div>
@@ -397,4 +433,7 @@
 
         <button type="submit">Submit</button>
     </div>
-</form> --}}
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> --}}
