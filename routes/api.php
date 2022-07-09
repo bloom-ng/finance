@@ -18,4 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/payers/payer-type/{payerType}', [\App\Http\Controllers\Api\IncomeController::class, 'getPayerByType']);
+Route::get('/payers/payer-type/{payerType}', [\App\Http\Controllers\Api\IncomeController::class, 'getPayerByType'])->name('payers.search.payerType');

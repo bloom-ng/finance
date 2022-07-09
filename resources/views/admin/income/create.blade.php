@@ -309,12 +309,13 @@
                     name = data; 
                     let html = "" ;
                     data.forEach(function(item){ 
+                        console.log(item);
                         html +=`<div class="items"onclick="updateForm('${item.id}', '${item.name}')">
                                 ${item.name}
                         </div>`
                     });
                     // document.querySelector("#email-list").innerHTML = html;
-                    $("#payer-list").html(html);
+                    document.querySelector('#payer-list').html(html);
                 });
             }); 
         
