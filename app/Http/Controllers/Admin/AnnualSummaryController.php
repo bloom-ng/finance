@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Income;
+use App\Models\PayerType;
 
 class AnnualSummaryController extends Controller
 {
@@ -16,12 +17,14 @@ class AnnualSummaryController extends Controller
 
     public function annual(){
         $year = request('year', date('Y'));
+        $payerTypes = PayerType::all();
         $income = Income::query()
                     ->whereYear('payment_date', $year)
                     ->get();
 
         return view('admin.reports.annual-summary', [
-            'income' => $income
+            'income' => $income,
+            'months' => Income::getMonths()
         ]);
     }
 }

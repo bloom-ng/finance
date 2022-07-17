@@ -27,4 +27,21 @@ class Income extends Model
             3   =>  'Others'
         ];
     }
+
+    public static function getMonths(){
+        return [
+            'JAN',
+            'FEB',
+            'MAR',
+            'APR',
+            'MAY',
+            'JUN',
+            'JUL',
+            'AUG',
+            'SEP',
+            'OCT',
+            'NOV',
+            'DEC',
+        ]
+    }
 }
