@@ -5,13 +5,27 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\controllers\Controller;
 use App\Models\Income;
+use App\Models\IncomeType;
+use App\Models\PayerType;
 
 
 class IncomeController extends Controller
 {
     public function index()
     {
+        $incomes = Income::query()
+                        ->with(['incomeType', 'payer'])
+                        ->when(request()->has('income_type_id') && !empty(request('income_type_id')), function ($query){
+                            $query->where('income_type_id', request('income_type_id'));
+                        })
+                        ->latest()
+                        ->paginate(30);
 
+        return view('admin.income.index', [
+            'incomes'   => $incomes,
+            'payerTypes'   => PayerType::all(),
+            'incomeTypes'   => IncomeType::all(),
+        ]);
     }
 
     public function show()
@@ -37,7 +51,7 @@ class IncomeController extends Controller
             'amount'            =>  'required',
             'payment_method'    =>  'required',
             'remark'            =>  'required|string',
-            'payment_date'      =>  'required|date'
+            'payment_date'      =>  'required'
         ]);
 
         $income = new Income();
@@ -51,7 +65,7 @@ class IncomeController extends Controller
 
         $income->save();
 
-        return redirect()->route('admin.incomes.create');
+        return redirect()->route('admin.incomes.create')->with('message', 'Saved Successfully');
     }
 
     public function update()
