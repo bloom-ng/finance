@@ -75,6 +75,7 @@
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{route('admin.income-types.index')}}"> Income Types</a>
+                                <a class="nav-link" href="{{route('admin.incomes.index')}}">View Incomes</a>
                                 <a class="nav-link" href="{{route('admin.incomes.create')}}">Add Income</a>
                             </nav>
                         </div>
@@ -125,6 +126,11 @@
         <!-- Page Content -->
         <div id="layoutSidenav_content">
             <main>
+                @if (session('message'))
+                    <div class="alert alert-primary">
+                        {{ session('message') }}
+                    </div>
+                @endif
                 <div class="container-fluid px-4">
                     <h1 class="mt-4 mb-3">Add Income</h1>
                     <div class="row">
