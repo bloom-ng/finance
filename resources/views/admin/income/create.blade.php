@@ -135,121 +135,76 @@
 
                                     <div x-data="{ showPayerComponent : false}" x-cloak>
 
-                                        <table id="datatablesSimple">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Income Type</th>
-                                                    <th>Payer Class</th>
-                                                    <th>Payer</th>
-                                                    <th>Amount</th>
-                                                    <th>Payment Method</th>
-                                                    <th>Remark</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Income Type</th>
-                                                    <th>Payer Class</th>
-                                                    <th>Payer</th>
-                                                    <th>Amount</th>
-                                                    <th>Payment Method</th>
-                                                    <th>Remark</th>
-                                                </tr>
-                                            </tfoot>
 
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div>
-                                                            <label for="payment_date">Date</label>
-                                                            <input type="date" name="payment_date" id="payment_date"
-                                                                value="{{date('y-m-d')}}">
-                                                            <br>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div>
-                                                            <label for="income_type_id">Income Type</label>
-                                                            <select name="income_type_id" id="income_type_id">
-                                                                @foreach ( $incomeTypes as $incomeType )
-                                                                <option value="{{$incomeType->id}}">
-                                                                    {{$incomeType->name}}
-                                                                </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td class="d-flex justify-content-around">
-                                                        <div>
-                                                            <label for="payer_type">Payer Class</label>
-                                                            <select name="payer_type" id="payer_type"
-                                                                @change="$el.value != '' ? showPayerComponent = true : showPayerComponent = false">
-                                                                <option value=""></option>
-                                                                @foreach ( $payerTypes as $payerType )
-                                                                <option value="{{$payerType->id}}">
-                                                                    {{$payerType->name}}
-                                                                </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        {{-- <div x-show="showPayerComponent">
-                                                            <label for="payer">Payer</label> --}}
-                                                            <!-- <select name="payer_id" id="payer_id"></select> -->
-                                                            {{-- <div>
-                                                                <input type="search" name="payer" id="payer"
-                                                                    onchange="findPayer()">
-                                                                <div id="choices"></div>
-                                                            </div>
-                                                            <input type="hidden" name="payer_id" id="payer_id">
-                                                        </div>--}}
-                                                        <div class="form-group col-md-5 col-sm-12 "
-                                                            style="position:relative">
-                                                            <label for="payer">Payer <b class="required_field"> *
-                                                                </b></label>
-                                                            <input class="" autocomplete="off" list="payer" type="text"
-                                                                name="payer" id="payer" required onchange="findPayer()">
+                                        <div>
+                                            <label for="payment_date">Date</label>
+                                            <input type="date" name="payment_date" id="payment_date"
+                                                value="{{date('Y-m-d')}}">
+                                            <br>
+                                        </div>
 
-                                                            <div style="position:absolute" id="payer-list">
+                                        <div>
+                                            <label for="income_type_id">Income Type</label>
+                                            <select name="income_type_id" id="income_type_id">
+                                                @foreach ( $incomeTypes as $incomeType )
+                                                <option value="{{$incomeType->id}}">
+                                                    {{$incomeType->name}}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div>
-                                                            <label for="amount">Amount</label>
-                                                            <input type="number" name="amount" id="amount">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div>
-                                                            <label for="payment_method">Payment Method</label>
-                                                            <select required name="payment_method" id="payment_method">
-                                                                <option value=""></option>
-                                                                @foreach ($paymentMethodMapping as $key =>
-                                                                $value )
-                                                                <option value="{{$key}}">
-                                                                    {{$value}}
-                                                                </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div>
-                                                            <label for="remark">Remark</label>
-                                                            <input type="text" name="remark" id="remark">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-success" type="submit">Submit</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div>
+                                            <label for="payer_type">Payer Class</label>
+                                            <select name="payer_type" id="payer_type"
+                                                @change="$el.value != '' ? showPayerComponent = true : showPayerComponent = false">
+                                                <option value=""></option>
+                                                @foreach ( $payerTypes as $payerType )
+                                                <option value="{{$payerType->id}}">
+                                                    {{$payerType->name}}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div x-show="showPayerComponent" style="position:relative">
+                                            <label for="payer">Payer</label>
+                                            <!-- <select name="payer_id" id="payer_id"></select> -->
+                                            <div>
+                                                <input type="search" name="payer" id="payer" onchange="findPayer()">
+                                                <div id="choices"></div>
+                                            </div>
+                                            <input type="hidden" name="payer_id" id="payer_id">
+                                            <div style="position:absolute" id="payer-list">
+
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label for="amount">Amount</label>
+                                            <input type="number" name="amount" id="amount">
+                                        </div>
+
+                                        <div>
+                                            <label for="payment_method">Payment Method</label>
+                                            <select required name="payment_method" id="payment_method">
+                                                <option value=""></option>
+                                                @foreach ($paymentMethodMapping as $key =>
+                                                $value )
+                                                <option value="{{$key}}">
+                                                    {{$value}}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label for="remark">Remark</label>
+                                            <input type="text" name="remark" id="remark">
+                                        </div>
+
+                                        <button class="btn btn-success" type="submit">Submit</button>
+
                                     </div>
                                 </form>
                             </div>
@@ -279,12 +234,6 @@
     <script src="/js/scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous">
-    </script>
-    <script src="/assets/demo/chart-area-demo.js"></script>
-    <script src="/assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="/js/datatables-simple-demo.js"></script>
     <script>
         async function findPayer(){
         // let payer_type = document.querySelector('#payer_type').value;
@@ -301,8 +250,7 @@
                 let payer_type = $('#payer_type').val();
                 console.log('searching');
                 $("#payer-list").html(payer_type); 
-                let url=`/api/payers/payer-type/${payer_type}?q=${payer_type}`;
-                $.get(url).done( function(data){ 
+                let url=`/api/payers/payer-type/${payerType}?q=${payer_type}`;
                     data=JSON.parse(data); 
                     data=data.results; 
                     console.log(data); 
