@@ -1,6 +1,6 @@
 
 
-
+<x-header></x-header>
     <form action="{{route('admin.payers.update', ['payer' => $payer])}}" method="post">
         @csrf
         @method('PUT')
@@ -32,3 +32,5 @@
 
         <button type="submit">Update</button>
     </form>
+
+    <x-footer></x-footer>

@@ -1,5 +1,5 @@
 
-
+<x-header></x-header>
 
     <form action="{{route('admin.payers.store')}}" method="post">
         @csrf
@@ -17,3 +17,5 @@
 
         <button type="submit">Add</button>
     </form>
+
+    <x-footer></x-footer>

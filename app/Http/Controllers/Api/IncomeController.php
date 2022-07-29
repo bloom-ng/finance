@@ -13,7 +13,7 @@ class IncomeController extends Controller
                         $query->where('name', 'LIKE', "%".request('q')."%");
                     })
                     ->where('payer_type_id', $payerType)
-                    ->get();
+                    ->get(['id','name', 'name as text']);
         return response()->json([
             'payers' => $payers
         ]);

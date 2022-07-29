@@ -44,7 +44,7 @@ class PayerController extends Controller
         
         $payer->save();
 
-        return redirect()->route('admin.payers.index');
+        return redirect()->back();
     }
 
     public function edit(Payer $payer)
