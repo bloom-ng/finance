@@ -140,17 +140,17 @@
                             <div class="card-body">
                                 <form action="" method="GET">
                                     <div class="row">
-    
+
                                         <div class="form-group col-md-6">
                                             <label for="">Income Type</label>
                                             <select class="form-control" name="income_type_id" id="">
                                                 <option value=""></option>
                                                 @foreach ($incomeTypes as $incomeType )
-                                                    <option value="{{$incomeType->id}}">{{$incomeType->name}}</option>
+                                                <option value="{{$incomeType->id}}">{{$incomeType->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                       
+
                                     </div>
                                     <button class="btn btn-primary my-3">Filter</button>
                                 </form>
@@ -185,12 +185,15 @@
                                             <td>{{$income->amount}}</td>
                                             <td>{{$income->payment_date}}</td>
                                             <td class="d-flex justify-content-around">
-                                                {{-- <form
-                                                    action="{{route('admin.income-types.delete', ['incomeType'=> $incomeType])}}"
-                                                    method="post">  --}}
+                                                <a class="btn btn-primary"
+                                                    href="{{route('admin.incomes.show', ['income' => $income])}}">View</a>
+                                                <a class="btn btn-warning"
+                                                    href="{{route('admin.incomes.edit', ['income' => $income])}}">Edit</a>
+                                                <form action="{{route('admin.incomes.delete', ['income'=> $income])}}"
+                                                    method="post">
                                                     @csrf @method('DELETE')
                                                     <button class="btn btn-danger" type="submit">Delete</button>
-                                                {{-- </form> --}}
+                                                </form>
                                             </td>
                                         </tr>
                                     </tbody>

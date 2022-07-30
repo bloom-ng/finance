@@ -28,9 +28,14 @@ class IncomeController extends Controller
         ]);
     }
 
-    public function show()
+    public function show(Income $income)
     {
-
+        return view('admin.income.show', [
+            'income'   => $income,
+            'payerTypes'   => PayerType::all(),
+            'incomeTypes'   => IncomeType::all(),
+            'paymentMethodMapping'  =>  Income::paymentMethodMapping()
+        ]);
     }
 
     public function create()
@@ -68,18 +73,49 @@ class IncomeController extends Controller
         return redirect()->route('admin.incomes.create')->with('message', 'Saved Successfully');
     }
 
-    public function update()
+    public function update(Income $income, Request $request)
     {
+        $data = $request->validate([
+            'income_type_id'    =>  'required|exists:income_types,id',
+            'payer_id'          =>  'required|exists:payers,id',
+            'amount'            =>  'required',
+            'payment_method'    =>  'required',
+            'remark'            =>  'required|string',
+            'payment_date'      =>  'required'
+        ]);
 
+        $income = new Income();
+
+        $income->income_type_id = $data['income_type_id'];
+        $income->payer_id = $data['payer_id'];
+        $income->amount = $data['amount'];
+        $income->payment_method = $data['payment_method'];
+        $income->remark = $data['remark'];
+        $income->payment_date = $data['payment_date'];
+
+        $income->save();
+
+        return redirect()->route('admin.incomes.create')->with('message', 'Saved Successfully');
     }
 
-    public function edit()
+    public function edit(Income $income)
     {
-
+        // $income = Income::with([
+        //     'payer:id,name as payer_name',
+        //     'incomeType:id,name as incomeType_name',
+        // ]);
+        return view('admin.income.edit', [
+            'income'   => $income,
+            'payerTypes'   => PayerType::all(),
+            'incomeTypes'   => IncomeType::all(),
+            'paymentMethodMapping'  =>  Income::paymentMethodMapping()
+        ]);
     }
 
-    public function destroy()
+    public function destroy(Income $income)
     {
-        
+        $income->delete();
+
+        return redirect()->route('admin.incomes.index');
     }
 }

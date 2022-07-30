@@ -63,7 +63,7 @@ Route::delete('/admins/payers/{payer}', [App\Http\Controllers\Admin\PayerControl
 
 Route::get('/admins/incomes', [App\Http\Controllers\Admin\IncomeController::class, 'index'])->name('admin.incomes.index');
 Route::get('/admins/incomes/create', [App\Http\Controllers\Admin\incomeController::class, 'create'])->name('admin.incomes.create');
-Route::get('/admins/incomess/{income}', [App\Http\Controllers\Admin\IncomeController::class, 'show'])->name('admin.incomes.show');
+Route::get('/admins/incomes/{income}', [App\Http\Controllers\Admin\IncomeController::class, 'show'])->name('admin.incomes.show');
 Route::get('/admins/incomes/{income}/edit', [App\Http\Controllers\Admin\IncomeController::class, 'edit'])->name('admin.incomes.edit');
 Route::post('/admins/incomes', [App\Http\Controllers\Admin\IncomeController::class, 'store'])->name('admin.incomes.store');
 Route::put('/admins/incomes/{income}', [App\Http\Controllers\Admin\Incomeontroller::class, 'update'])->name('admin.incomes.update');
