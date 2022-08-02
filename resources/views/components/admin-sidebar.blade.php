@@ -53,11 +53,7 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         Charts
                     </a>
-                    <a class="nav-link" href="{{route('admin.reports')}}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Annual Summary
-                    </a>
-                    <a class="nav-link" id="summaryModal">
+                    <a class="nav-link" id="summaryModal" href="{{route('admin.reports')}}">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Annual Summary
                     </a>

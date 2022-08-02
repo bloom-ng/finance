@@ -9,7 +9,7 @@
         <div class="card-body">
             <div class="col-xl-6 col-md-6">
                 <div class="card bg-primary text-white mb-4">
-                    <div class="card-body">Add Admin</div>
+                    <div class="card-body">Add Payer Type</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small text-white stretched-link" href="{{route('admin.payer-types.create')}}">Click
                             here</a>
@@ -30,7 +30,7 @@
                     <tr>
                         <td>{{$loop->index + 1}}</td>
                         <td>{{$payerType->name}}</td>
-                        <td class="d-flex justify-content-center gap-2">
+                        <td class="d-flex justify-content-around">
                             <a class="btn btn-warning"
                                 href="{{route('admin.payer-types.edit', ['payerType' => $payerType])}}">Edit</a>
 
