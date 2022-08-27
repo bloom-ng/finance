@@ -73,6 +73,9 @@ Route::delete('/admins/incomes/{income}', [App\Http\Controllers\Admin\IncomeCont
 
 Route::get('/admins/reports', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'index'])->name('admin.reports');
 Route::get('/admins/reports/annual-summary', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'annual'])->name('admin.reports.annual-summary');
-
+Route::get('/admins/reports/band', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'band_index'])->name('admin.reports.band');
+Route::get('/admins/reports/band/annual', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'band_deposit'])->name('admin.reports.band.annual');
+Route::get('/admins/reports/weekly', [App\Http\Controllers\Admin\WeeklySummaryController::class, 'index'])->name('admin.reports.weekly');
+Route::get('/admins/reports/weekly-summary', [App\Http\Controllers\Admin\WeeklySummaryController::class, 'weekly_report'])->name('admin.reports.weekly-summary');
 
 //////////////////////////////////////////////////END OF ADMIN ROUTES//////////////////////////////////////////////////////////////////////////////////////////

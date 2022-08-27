@@ -11,10 +11,17 @@
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 {{$slot}}
 <script>
-    document.getElementById("summaryModal").onclick = function summaryModal(){pop alert(<h1>Welcome</h1>)};
-    // function summaryModal(){
-    //     document.getElementById("summaryModal");
-    // }
+    var year = document.getElementById("annual-report");
+    var yearly = document.getElementById('yearly-modal')
+    year.onclick = function summaryModal(){
+        yearly.classList.remove("hidden");
+    };
+
+    var week = document.getElementById("weekly-report");
+    var weekly = document.getElementById("weekly-modal");
+    week.onclick = function showModal(){
+        weekly.classList.remove("hidden");
+    };
 
 </script>
 

@@ -1,7 +1,7 @@
 <x-admin-header></x-admin-header>
 <x-admin-sidebar></x-admin-sidebar>
 <x-main-section>
-
+    <x-report />
     <div class="card mb-4">
         <div class="card-header mx-2">
             <h1>Payer Types</h1>
