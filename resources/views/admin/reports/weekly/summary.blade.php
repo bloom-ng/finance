@@ -9,26 +9,26 @@
         <div class="card-body">
             <table class="table">
                 <thead>
-                    {{-- <tr>
+                    <tr>
                         <th>INCOME</th>
-                        @foreach ($months as $key => $month)
-                        <th>{{ $month }}</th>
+                        @foreach ($weeks as $key => $week)
+                        <th>WEEK {{ $key }}</th>
                         @endforeach
                         <th>
                             TOTAL
                         </th>
-                    </tr> --}}
+                    </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($incomes as $key => $income)
+                    @foreach ($incomes as $key => $income)
                     <tr>
                         <td class="text-uppercase">{{$key}}</td>
-                        @foreach ()
-                        <td>{{ $income[$monthKey+1] == 0 ? "-" : $income[$monthKey+1] }}</td>
+                        @foreach ($weeks as $weekKey => $week)
+                        <td>{{ $income[$weekKey] == 0 ? "-" : $income[$weekKey] }}</td>
                         @endforeach
                         <td>{{$incomesTotal[$key]}}</td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>

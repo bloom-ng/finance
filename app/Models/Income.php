@@ -46,4 +46,14 @@ class Income extends Model
             'DEC',
         ];
     }
+
+    public static function getWeeks($year, $month) {
+        return [
+            1   => ['start' => "{$year}-{$month}-1", 'end' => "{$year}-{$month}-7"],
+            2   => ['start' => "{$year}-{$month}-8", 'end' => "{$year}-{$month}-14"],
+            3   => ['start' => "{$year}-{$month}-15", 'end' => "{$year}-{$month}-21"],
+            4   => ['start' => "{$year}-{$month}-22", 'end' => "{$year}-{$month}-28"],
+            5   => ['start' => "{$year}-{$month}-29", 'end' => "{$year}-{$month}-31"],
+        ];
+    }
 }

@@ -73,9 +73,17 @@ Route::delete('/admins/incomes/{income}', [App\Http\Controllers\Admin\IncomeCont
 
 Route::get('/admins/reports', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'index'])->name('admin.reports');
 Route::get('/admins/reports/annual-summary', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'annual'])->name('admin.reports.annual-summary');
-Route::get('/admins/reports/band', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'band_index'])->name('admin.reports.band');
-Route::get('/admins/reports/band/annual', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'band_deposit'])->name('admin.reports.band.annual');
+Route::get('/admins/reports/annual/payer_type', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'payer_type_index'])->name('admin.reports.payer_type');
+Route::get('/admins/reports/annual/payer_type/summary', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'payer_type_summary'])->name('admin.reports.payer_type.annual');
+Route::get('/admins/reports/annual/income_type', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'income_type_index'])->name('admin.reports.income_type');
+Route::get('/admins/reports/annual/income_type/summary', [App\Http\Controllers\Admin\AnnualSummaryController::class, 'income_type_summary'])->name('admin.reports.income_type.annual');
+
+//Weekly 
 Route::get('/admins/reports/weekly', [App\Http\Controllers\Admin\WeeklySummaryController::class, 'index'])->name('admin.reports.weekly');
 Route::get('/admins/reports/weekly-summary', [App\Http\Controllers\Admin\WeeklySummaryController::class, 'weekly_report'])->name('admin.reports.weekly-summary');
+Route::get('/admins/reports/weekly/income_type', [App\Http\Controllers\Admin\WeeklySummaryController::class, 'income_type_index'])->name('admin.reports.weekly_income_type');
+Route::get('/admins/reports/weekly/income_type/summary', [App\Http\Controllers\Admin\WeeklySummaryController::class, 'income_type_summary'])->name('admin.reports.weekly_income_type_summary');
+Route::get('/admins/reports/weekly/payer_type', [App\Http\Controllers\Admin\WeeklySummaryController::class, 'payer_type_index'])->name('admin.reports.weekly_payer_type');
+Route::get('/admins/reports/weekly/payer_type/summary', [App\Http\Controllers\Admin\WeeklySummaryController::class, 'payer_type_summary'])->name('admin.reports.weekly_payer_type_summary');
 
 //////////////////////////////////////////////////END OF ADMIN ROUTES//////////////////////////////////////////////////////////////////////////////////////////

@@ -12,8 +12,12 @@ use App\Models\PayerType;
 class AnnualSummaryController extends Controller
 {
     public function index(){
-        return view('admin.reports.index', [
-            'year' => 2020
+        $payerTypes  = PayerType::all();
+        $incomeTypes  = IncomeType::all();
+        return view('admin.reports.annual.index', [
+            'year' => 2020,
+            'payerTypes' => $payerTypes,
+            'incomeTypes' => $incomeTypes
         ]);
     }
 
@@ -47,7 +51,7 @@ class AnnualSummaryController extends Controller
                     ->get();
 
         // dd($incomesTotal);
-        return view('admin.reports.annual-summary', [
+        return view('admin.reports.annual.summary', [
             'income' => $income,
             'months' => $months,
             'incomes'=> $incomes,
@@ -55,22 +59,22 @@ class AnnualSummaryController extends Controller
         ]);
     }
 
-    public function band_index(){
-        return view('admin.reports.band.index', [
-            'year' => 2020
-        ]);
-    }
+    // public function payer_type_index(){
+    //     $payerTypes  = PayerType::all();
+    //     return view('admin.reports.yearly.payer_type.index', [
+    //         'year' => 2020,
+    //         'payerTypes' => $payerTypes
+    //     ]);
+    // }
 
-    public function band_deposit() {
-        $year = request('year', date('Y'));
-        // $incomeTypes = IncomeType::where('name', 'Band Deposit');
-        $payers = PayerType::where('name', 'Band')->get();
+    public function payer_type_summary() {
+        $year = request('year');
+        $payerType = request('payerType');
+        $payers = Payer::where('payer_type_id', $payerType)->get();
+        $months = Income::getMonths();
         $incomes = [];
         $incomesTotal = [];
-        $months = Income::getMonths();
 
-        //Income has to be payer payer class is equal to band
-        //Incometype = Incometype Bband Deposit
         foreach($payers as $payer){
             $monthlyIncome = [];
             $annualTotal = 0;
@@ -80,7 +84,7 @@ class AnnualSummaryController extends Controller
                 $monthIncome = Income::query()
                                     ->whereYear('payment_date', $year)
                                     ->whereMonth('payment_date', $loopMonth)
-                                    ->where('income_type_id', 9)
+                                    ->where('payer_id', $payer->id)
                                     ->sum('amount');
                 $monthlyIncome[$loopMonth] = $monthIncome;
                 $annualTotal += $monthIncome;
@@ -89,13 +93,45 @@ class AnnualSummaryController extends Controller
             $incomesTotal[$payer->name] =  $annualTotal;
         }
 
-        $income = Income::query()
-                    ->whereYear('payment_date', $year)
-                    ->get();
+        return view('admin.reports.annual.payer_type.summary', [
+            'months' => $months,
+            'incomes'=> $incomes,
+            'incomesTotal' => $incomesTotal
+        ]);
+    }
 
-        // dd($incomesTotal);
-        return view('admin.reports.band.annual-summary', [
-            'income' => $income,
+    // public function income_type_index(){
+    //     $incomeTypes  = IncomeType::all();
+    //     return view('admin.reports.yearly.income_type.index', [
+    //         'year' => 2022,
+    //         'incomeTypes' => $incomeTypes
+    //     ]);
+    // }
+
+    public function income_type_summary() {
+        $year = request('year');
+        $income_type_id = request('incomeType');
+        $incomeType = IncomeType::find($income_type_id);
+        $months = Income::getMonths();
+        $incomes = [];
+        $incomesTotal = [];
+            $monthlyIncome = [];
+            $annualTotal = 0;
+            foreach($months as $key => $month){
+                $loopMonth = $key+1;
+                
+                $monthIncome = Income::query()
+                                    ->whereYear('payment_date', $year)
+                                    ->whereMonth('payment_date', $loopMonth)
+                                    ->where('income_type_id', $incomeType->id)
+                                    ->sum('amount');
+                $monthlyIncome[$loopMonth] = $monthIncome;
+                $annualTotal += $monthIncome;
+            }
+            $incomes[$incomeType->name] =  $monthlyIncome;
+            $incomesTotal[$incomeType->name] =  $annualTotal;
+
+        return view('admin.reports.annual.income_type.summary', [
             'months' => $months,
             'incomes'=> $incomes,
             'incomesTotal' => $incomesTotal
